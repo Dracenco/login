@@ -14,6 +14,8 @@ import { ButtonWithIcon } from 'vtex.styleguide'
 import { truncateString } from '../utils/format-string'
 import { translate } from '../utils/translate'
 import { LoginPropTypes } from '../propTypes'
+import composeQueryString from '../utils/composeQueryString'
+import { BINDING_ADDRESS } from '../common/global'
 
 import styles from '../styles.css'
 import Loading from './Loading'
@@ -96,7 +98,15 @@ class LoginComponent extends Component {
               )
             }
             iconPosition={showIconProfile ? 'left' : 'right'}
-            onClick={() => navigate({ page: linkTo, query: returnUrl })}
+            onClick={() => navigate({
+              page: linkTo,
+              query: composeQueryString({
+                returnUrl,
+                ...(BINDING_ADDRESS && {
+                  BINDING_ADDRESS,
+                }),
+              })
+            })}
           >
             {buttonContent}
           </ButtonWithIcon>

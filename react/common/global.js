@@ -5,3 +5,7 @@ export const ButtonBehavior = {
   POPOVER: 'popover',
   LINK: 'link',
 }
+
+const search = window && window.location && window.location.search
+const searchParams = new URLSearchParams(search)
+export const BINDING_ADDRESS = searchParams.get('__bindingAddress')
