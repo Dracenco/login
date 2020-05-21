@@ -15,7 +15,7 @@ import { truncateString } from '../utils/format-string'
 import { translate } from '../utils/translate'
 import { LoginPropTypes } from '../propTypes'
 import composeQueryString from '../utils/composeQueryString'
-import { BINDING_ADDRESS } from '../common/global'
+import getBindingAddress from '../utils/getBindingAddress'
 
 import styles from '../styles.css'
 import Loading from './Loading'
@@ -88,6 +88,7 @@ class LoginComponent extends Component {
       const linkTo = sessionProfile ? 'store.account' : 'store.login'
       const returnUrl =
         !sessionProfile && `returnUrl=${encodeURIComponent(`${pathname}${search}`)}`
+      const bindingAddress = getBindingAddress()
       return (
         <div className={styles.buttonLink}>
           <ButtonWithIcon
@@ -102,8 +103,8 @@ class LoginComponent extends Component {
               page: linkTo,
               query: composeQueryString({
                 returnUrl,
-                ...(BINDING_ADDRESS && {
-                  BINDING_ADDRESS,
+                ...(bindingAddress && {
+                  bindingAddress,
                 }),
               })
             })}
